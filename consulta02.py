@@ -13,14 +13,15 @@ engine = create_engine(cadena_base_datos)
 # Crear una sesión
 session = Session(engine)
 
+# Consulta todos los departamentos que tengan al menos una entrega con calificación <= 0.3
 departamentos = (session.query(Departamento)
-    .join(Departamento.cursos)
-    .join(Curso.tareas)
-    .join(Tarea.entregas)
+    .join(Curso)
+    .join(Tarea)
+    .join(Entrega)
     .filter(Entrega.calificacion <= 0.3)
     .all()
 )
-
+# Recorre los departamentos filtrados
 for departamento in departamentos:
     num_cursos = len(departamento.cursos)
     print(f"Departamento: {departamento.nombre}, Número de Cursos: {num_cursos}")
