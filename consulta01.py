@@ -14,16 +14,20 @@ engine = create_engine(cadena_base_datos)
 session = Session(engine)
 
 # Realizar la consulta solicitada
+
 resultado = (
-    session.query( Entrega,Tarea.titulo.label("nombre_tarea"), Estudiante.nombre.label("nombre_estudiante"),Entrega.calificacion,Instructor.nombre.label("nombre_instructor"),Departamento.nombre.label("nombre_departamento"))
+    session.query(Entrega)
     .join(Entrega.tarea)
     .join(Tarea.curso)
     .join(Curso.departamento)
-    .join(Curso.instructor)
-    .join(Entrega.estudiante)
     .filter(Departamento.nombre == "Arte")
     .all()
 )
 
-for entrega, nombre_tarea, nombre_estudiante, calificacion, nombre_instructor, nombre_departamento in resultado:
-    print(f"Tarea: {nombre_tarea}, Estudiante: {nombre_estudiante}, Calificación: {calificacion}, Instructor: {nombre_instructor}, Departamento: {nombre_departamento}")
+for entrega in resultado:
+    tarea = entrega.tarea
+    estudiante = entrega.estudiante
+    curso = tarea.curso
+    instructor = curso.instructor
+    departamento = curso.departamento
+    print(f"Tarea: {tarea.titulo}, Estudiante: {estudiante.nombre}, Calificación: {entrega.calificacion}, Instructor: {instructor.nombre}, Departamento: {departamento.nombre}")
