@@ -15,8 +15,7 @@ session = Session(engine)
 
 # Realizar la consulta solicitada
 
-resultado = (
-    session.query(Entrega)
+resultado = (session.query(Entrega)
     .join(Entrega.tarea)
     .join(Tarea.curso)
     .join(Curso.departamento)
