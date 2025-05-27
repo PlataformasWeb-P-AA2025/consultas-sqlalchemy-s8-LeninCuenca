@@ -2,7 +2,7 @@
 # En función de la entrega, presentar, nombre del tarea, nombre del estudiante, 
 # calificación, nombre de instructor y nombre del departamento
 
-from sqlalchemy import create_engine, select, join
+from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from clases import Base, Departamento, Curso,Tarea, Entrega
 from config import cadena_base_datos
