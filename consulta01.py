@@ -4,7 +4,7 @@
 
 from sqlalchemy import create_engine, select, join
 from sqlalchemy.orm import Session
-from clases import Base, Departamento, Instructor, Curso, Estudiante, Tarea, Entrega
+from clases import Base, Departamento, Curso,Tarea, Entrega
 from config import cadena_base_datos
 #se arma el camino de la base de datos
 
@@ -13,8 +13,7 @@ engine = create_engine(cadena_base_datos)
 # Crear una sesión
 session = Session(engine)
 
-# Realizar la consulta solicitada
-
+# Realizar la consulta
 resultado = (session.query(Entrega)
     .join(Entrega.tarea)
     .join(Tarea.curso)
